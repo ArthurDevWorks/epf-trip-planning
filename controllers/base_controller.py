@@ -14,10 +14,9 @@ class BaseController:
         # Rota para arquivos estáticos (CSS, JS, imagens)
         self.app.route('/static/<filename:path>', callback=self.serve_static)
 
-
     def home_redirect(self):
         """Redireciona a rota raiz para /users"""
-        return self.redirect('/users')
+        return self.redirect('/login')
 
 
     def helper(self):
