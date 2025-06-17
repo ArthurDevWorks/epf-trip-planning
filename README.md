@@ -1,12 +1,18 @@
-# Projeto Template: POO com Python + Bottle + JSON
+# Projeto: Planejamento de Viagens com Bottle e MySQL
 
-Este é um projeto de template educacional voltado para o ensino de **Programação Orientada a Objetos (POO)** do Prof. Lucas Boaventura, Universidade de Brasília (UnB).
+Este projeto tem como objetivo auxiliar o usuário a planejar suas viagens, permitindo o cadastro e autenticação, seleção de cidade e período da viagem, e consulta de informações climáticas durante o período desejado. Os dados são armazenados em um banco de dados MySQL.
 
-Utiliza o microframework **Bottle**. Ideal para uso em disciplinas introdutórias de Engenharia de Software ou Ciência da Computação.
+Desenvolvido com Python e o microframework Bottle, este sistema é um projeto para a disciplina de Programação Orientada a Objetos (POO) da Universidade de Brasília (UnB).
 
-## 💡 Objetivo
+## 💡 Funcionalidades
 
-Fornecer uma base simples, extensível e didática para construção de aplicações web orientadas a objetos com aplicações WEB em Python, ideal para trabalhos finais ou exercícios práticos.
+Cadastro e login de usuários
+
+Planejamento de viagem com cidade e datas
+
+Consulta da previsão do tempo via API
+
+Armazenamento persistente em banco de dados MySQL
 
 ---
 
