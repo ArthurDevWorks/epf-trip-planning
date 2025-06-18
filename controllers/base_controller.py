@@ -1,10 +1,21 @@
 from bottle import static_file
+import pymysql.cursors
 
 class BaseController:
     def __init__(self, app):
         self.app = app
         self._setup_base_routes()
+        self.db = self.connect_db()
 
+    def connect_db(self):
+        """Conexão com o banco de dados"""
+        return pymysql.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='trip-planning',
+            cursorclass=pymysql.cursors.DictCursor
+        )
 
     def _setup_base_routes(self):
         """Configura rotas básicas comuns a todos os controllers"""
