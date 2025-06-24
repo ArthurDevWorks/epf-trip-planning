@@ -14,24 +14,28 @@ class UserService:
             database='trip-planning',
             cursorclass=pymysql.cursors.DictCursor
         )
+    
+    #Funcao que cria a conta do usuario
+    def create_account(self, name, email, birthdate, password):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute("SELECT id FROM users WHERE email = %s", (email,))
+                if cursor.fetchone():
+                    return False, 'Email já cadastrado'
+
+                hash_password = sha256(password.encode()).hexdigest()
+                cursor.execute(
+                    "INSERT INTO users (name, email, birthdate, password) VALUES (%s, %s, %s, %s)",
+                    (name, email, birthdate, hash_password)
+                )
+                self.connection.commit()
+                return True, None
+        except Exception as e:
+            return False, str(e)
 
     #Funcao de autenticacao
     def authenticate(self, email, senha):
         with self.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM usuarios WHERE email=%s AND senha=%s", (email, sha256(senha.encode()).hexdigest()))
+            cursor.execute("SELECT * FROM users WHERE email=%s AND senha=%s", (email, sha256(senha.encode()).hexdigest()))
             return cursor.fetchone()
-        
-    #Criar conta
-    def create_acoount(self, nome, email, senha):
-        try:
-            with self.connection.cursor() as cursor:
-                cursor.execute("SELECT id FROM usuarios WHERE email=%s", (email,))
-                if cursor.fetchone():
-                    return False, 'Email já cadastrado'
-                cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)",
-                               (nome, email, sha256(senha.encode()).hexdigest()))
-                self.connection.commit()
-            return True, None
-        except Exception as e:
-            return False, str(e)
 

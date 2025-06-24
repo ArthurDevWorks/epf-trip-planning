@@ -17,8 +17,8 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('login', erro=None)
         email = request.forms.get('email')
-        senha = request.forms.get('senha')
-        usuario = self.user_service.autenticar(email, senha)
+        password = request.forms.get('password')
+        usuario = self.user_service.autenticar(email, password)
         if usuario:
             request.session['usuario_id'] = usuario['id']
             return redirect('/viagem')
@@ -27,10 +27,11 @@ class UserController(BaseController):
     def register(self):
         if request.method == 'GET':
             return self.render('register', erro=None)
-        nome = request.forms.get('nome')
+        name = request.forms.get('name')
         email = request.forms.get('email')
-        senha = request.forms.get('senha')
-        sucesso, erro = self.user_service.criar_conta(nome, email, senha)
+        birthdate = request.forms.get('birthdate')
+        password = request.forms.get('password')
+        sucesso, erro = self.user_service.create_account(name, email, birthdate, password)
         if sucesso:
             return redirect('/login')
         return self.render('register', erro=erro)

@@ -3,6 +3,11 @@ import os
 class Config:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+    DB_HOST = 'localhost'
+    DB_USER = 'root'
+    DB_PASSWORD = ''
+    DB_NAME = 'trip-planning'
+
     # Configurações do servidor
     HOST = 'localhost'
     PORT = 8080
