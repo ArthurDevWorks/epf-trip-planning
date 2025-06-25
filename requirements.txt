@@ -1,3 +1,9 @@
 bottle
 pylint
 pymysql
+Flask==2.3.2
+Werkzeug==2.3.7
+Flask-Login==0.6.3
+Flask-SQLAlchemy==3.1.1
+bcrypt==4.1.2
+python-dotenv==1.0.0 

@@ -1,6 +1,20 @@
 from bottle import Bottle, request, redirect
 from .base_controller import BaseController
 from services.user_service import UserService
+from flask import Blueprint, request, redirect, url_for, session
+from services.auth_service import AuthService
+
+user_bp = Blueprint('user', __name__)
+
+@user_bp.route('/login', methods=['POST'])
+def login():
+    username = request.form['username']
+    password = request.form['password']
+    user = AuthService.authenticate(username, password)
+    if user:
+        session['user_id'] = user.id
+        return redirect(url_for('home'))
+    return "Falha no login, tente novamente.", 401
 
 class UserController(BaseController):
     def __init__(self, app):

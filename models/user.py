@@ -2,16 +2,22 @@ import json
 import os
 from dataclasses import dataclass, asdict
 from typing import List
+from werkzeug.security import generate_password_hash, check_password_hash
 
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 
 class User:
-    def __init__(self, id, name, email, birthdate):
+    def __init__(self, id, name, email, birthdate, username, password):
         self.id = id
         self.name = name
         self.email = email
         self.birthdate = birthdate
+        self.username = username
+        self.password_hash = generate_password_hash(password)
 
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return (f"User(id={self.id}, name='{self.name}', email='{self.email}', "
@@ -81,3 +87,4 @@ class UserModel:
     def delete_user(self, user_id: int):
         self.users = [u for u in self.users if u.id != user_id]
         self._save()
+

@@ -1,6 +1,13 @@
 from bottle import Bottle
 from config import Config
 
+from flask import Flask
+from controllers.user_controller import user_bp
+
+app = Flask(__name__)
+app.secret_key = 'sua_chave_secreta'  # TROCAR CHAVE!!!!!!!!!
+app.register_blueprint(user_bp)
+
 class App:
     def __init__(self):
         self.bottle = Bottle()
