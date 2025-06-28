@@ -1,20 +1,6 @@
 from bottle import Bottle, request, redirect
 from .base_controller import BaseController
 from services.user_service import UserService
-from flask import Blueprint, request, redirect, url_for, session
-from services.auth_service import AuthService
-
-user_bp = Blueprint('user', __name__)
-
-@user_bp.route('/login', methods=['POST'])
-def login():
-    username = request.form['username']
-    password = request.form['password']
-    user = AuthService.authenticate(username, password)
-    if user:
-        session['user_id'] = user.id
-        return redirect(url_for('home'))
-    return "Falha no login, tente novamente.", 401
 
 class UserController(BaseController):
     def __init__(self, app):
@@ -26,16 +12,17 @@ class UserController(BaseController):
         self.app.route('/login', method=['GET', 'POST'], callback=self.login)
         self.app.route('/register', method=['GET', 'POST'], callback=self.register)
         self.app.route('/logout', method='GET', callback=self.logout)
+        self.app.route('/trip', method='GET', callback=self.logout)
 
     def login(self):
         if request.method == 'GET':
             return self.render('login', erro=None)
         email = request.forms.get('email')
         password = request.forms.get('password')
-        usuario = self.user_service.autenticar(email, password)
+        usuario = self.user_service.authenticate(email, password)
         if usuario:
             request.session['usuario_id'] = usuario['id']
-            return redirect('/viagem')
+            return redirect('/trip')
         return self.render('login', erro='Usuário ou senha inválidos')
 
     def register(self):
@@ -53,6 +40,12 @@ class UserController(BaseController):
     def logout(self):
         request.session.pop('usuario_id', None)
         return redirect('/login')
+
+    def trip(self):
+        usuario_id = request.session.get('usuario_id')
+        if not usuario_id:
+            return redirect('/login')
+        return self.render('trip')
 
 user_routes = Bottle()
 user_controller = UserController(user_routes)
