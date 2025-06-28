@@ -22,11 +22,6 @@
             <div class="btn">
                 <input type="submit" value="Entrar" name="submit" id="submit">
             </div>
-            <form action="{{ url_for('user.login') }}" method="POST">
-                <input type="text" name="username" required>
-                <input type="password" name="password" required>
-                <button type="submit">Login</button>
-            </form>
         </form>
         % if erro:
             <p class="error">{{erro}}</p>

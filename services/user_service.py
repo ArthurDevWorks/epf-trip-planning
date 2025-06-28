@@ -1,11 +1,7 @@
 import pymysql.cursors
 from hashlib import sha256
-from bottle import request
-from models.user import UserModel, User
 
 class UserService:
-
-    #Conexao com banco de dados
     def __init__(self):
         self.connection = pymysql.connect(
             host='localhost',
@@ -14,8 +10,7 @@ class UserService:
             database='trip-planning',
             cursorclass=pymysql.cursors.DictCursor
         )
-    
-    #Funcao que cria a conta do usuario
+
     def create_account(self, name, email, birthdate, password):
         try:
             with self.connection.cursor() as cursor:
@@ -31,11 +26,11 @@ class UserService:
                 self.connection.commit()
                 return True, None
         except Exception as e:
+            self.connection.rollback()
             return False, str(e)
 
-    #Funcao de autenticacao
-    def authenticate(self, email, senha):
+    def authenticate(self, email, password):
+        hash_password = sha256(password.encode()).hexdigest()
         with self.connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM users WHERE email=%s AND senha=%s", (email, sha256(senha.encode()).hexdigest()))
+            cursor.execute("SELECT * FROM users WHERE email=%s AND password=%s", (email, hash_password))
             return cursor.fetchone()
-

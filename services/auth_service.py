@@ -1,4 +1,5 @@
 from models.user import User
+from services.user_service import UserService
 
 class AuthService:
     @staticmethod
