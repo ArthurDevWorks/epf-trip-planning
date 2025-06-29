@@ -1,4 +1,5 @@
 from bottle import static_file
+from bottle import response, request
 import pymysql.cursors
 
 class BaseController:
@@ -8,15 +9,16 @@ class BaseController:
         self.db = self.connect_db()
 
     def connect_db(self):
-        """Conexão com o banco de dados"""
+        from config import Config
+        config = Config()
         return pymysql.connect(
-            host='localhost',
-            user='root',
-            password='',
-            database='trip-planning',
+            host=config.DB_HOST,
+            user=config.DB_USER,
+            password=config.DB_PASSWORD,
+            database=config.DB_NAME,
             cursorclass=pymysql.cursors.DictCursor
         )
-
+    
     def _setup_base_routes(self):
         """Configura rotas básicas comuns a todos os controllers"""
         self.app.route('/', method='GET', callback=self.home_redirect)
@@ -27,7 +29,7 @@ class BaseController:
 
     def home_redirect(self):
         """Redireciona a rota raiz para /trip"""
-        return self.redirect('/trip')
+        return self.redirect('/login')
 
 
     # def helper(self):
