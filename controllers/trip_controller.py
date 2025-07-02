@@ -1,4 +1,4 @@
-from bottle import request, redirect
+from bottle import Bottle, request, redirect
 from .base_controller import BaseController
 from services.trip_service import TripService
 
@@ -28,3 +28,6 @@ class TripController(BaseController):
         if sucesso:
             return redirect('/trip')
         return self.render('trip', erro=erro)
+
+trip_routes = Bottle()
+trip_controller = TripController(trip_routes)

@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h1>Planeje sua viagem</h1>
-    <form>
+    <form method="post">
       <div class="fields-row">
         <div>
           <label for="dt_begin">Data de início</label>

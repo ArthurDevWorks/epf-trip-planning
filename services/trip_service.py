@@ -1,19 +1,26 @@
 import pymysql
 from models.trip import Trip
-from controllers.base_controller import connect_db
 
 class TripService:
+    def __init__(self):
+        self.connection = pymysql.connect(
+            host='localhost',
+            user='root',
+            password='',
+            database='trip-planning',
+            cursorclass=pymysql.cursors.DictCursor
+        )
+
     def save(self, user_id, dt_begin, dt_end, local):
         try:
-            connection = connect_db()
-            with connection.cursor() as cursor:
+            with self.connection.cursor() as cursor:
                 cursor.execute(
                     "INSERT INTO trips (user_id, dt_begin, dt_end, local) VALUES (%s, %s, %s, %s)",
                     (user_id, dt_begin, dt_end, local)
                 )
-                connection.commit()
+                self.connection.commit()
                 return True, None
         except Exception as e:
             return False, str(e)
         finally:
-            connection.close()
+           self.connection.close()
