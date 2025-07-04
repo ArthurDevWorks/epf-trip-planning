@@ -1,4 +1,5 @@
 import pymysql
+import requests
 from models.trip import Trip
 from datetime import datetime
 
