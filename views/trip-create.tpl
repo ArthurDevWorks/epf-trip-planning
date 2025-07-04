@@ -22,6 +22,7 @@
         <div>
           <label for="local">Destino</label>
           <input type="text" id="local" name="local" placeholder="Digite o destino" required>
+          <ul id="sugestoes" class="autocomplete-list"></ul>
         </div>
       </div>
       <button type="submit">
@@ -32,5 +33,6 @@
       </button>
     </form>
   </div>
+   <script src="/static/js/loadCities.js"></script>
 </body>
 </html>
