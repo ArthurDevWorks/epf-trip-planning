@@ -19,5 +19,3 @@ class Config:
     STATIC_PATH = os.path.join(BASE_DIR, 'static')
     DATA_PATH = os.path.join(BASE_DIR, 'data')
 
-    # Outras configurações
-    SECRET_KEY = 'sua-chave-secreta-aqui'
