@@ -10,7 +10,7 @@ document.getElementById('local').addEventListener('input', function () {
   }
 
   timeoutId = setTimeout(() => {
-    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(q)}&type=city&limit=5&apiKey=${apiKey}`)
+    fetch(`https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(text)}&type=city&limit=5&apiKey=${apiKey}`)
       .then(res => res.json())
       .then(data => {
         const ul = document.getElementById('sugestoes');
