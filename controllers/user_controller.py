@@ -21,7 +21,7 @@ class UserController(BaseController):
 
         email = request.forms.get('email')
         password = request.forms.get('password')
-        usuario = self.user_service.authenticate(email, password)
+        usuario = self.user_service.authenticate(email,password)
 
         if usuario:
             session = request.environ.get('beaker.session')
@@ -37,8 +37,7 @@ class UserController(BaseController):
         email = request.forms.get('email')
         birthdate = request.forms.get('birthdate')
         password = request.forms.get('password')
-        hash_password = sha256(password.encode()).hexdigest()
-        sucesso, erro = self.user_service.create_account(name, email, birthdate, hash_password)
+        sucesso, erro = self.user_service.create_account(name, email, birthdate, password)
         if sucesso:
             return redirect('/login')
         return self.render('register', erro=erro)
