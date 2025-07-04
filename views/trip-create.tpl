@@ -9,7 +9,7 @@
 <body>
   <div class="container">
     <h1>Planeje sua viagem</h1>
-    <form method="post">
+    <form id = "tripForm" method="post">
       <div class="fields-row">
         <div>
           <label for="dt_begin">Data de início</label>
@@ -32,7 +32,52 @@
         </svg>
       </button>
     </form>
+    <!-- Modal Clima -->
+  <div id="weatherModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h2>Previsão do Tempo</h2>
+      <div id="weatherData"></div>
+      <button onclick="confirmarViagem()">Confirmar Viagem</button>
+    </div>
+  </div>
   </div>
    <script src="/static/js/loadCities.js"></script>
 </body>
 </html>
+<script>
+document.getElementById('tripForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const local = document.getElementById('local').value;
+  const dt_begin = document.getElementById('dt_begin').value;
+  const dt_end = document.getElementById('dt_end').value;
+
+  // chamada para API customizada sua (em Python Bottle)
+  const res = await fetch(`/api/weather?local=${encodeURIComponent(local)}&start=${dt_begin}&end=${dt_end}`);
+  const data = await res.json();
+
+  const container = document.getElementById('weatherData');
+  container.innerHTML = "";
+
+  if (data.error) {
+    container.innerHTML = `<p>${data.error}</p>`;
+  } else {
+    data.forecast.forEach(day => {
+      container.innerHTML += `
+        <p><strong>${day.date}</strong>: ${day.description}, ${day.temp}°C</p>
+      `;
+    });
+  }
+
+  document.getElementById('weatherModal').style.display = 'flex';
+});
+
+function fecharModal() {
+  document.getElementById('weatherModal').style.display = 'none';
+}
+
+function confirmarViagem() {
+  document.getElementById('tripForm').submit();
+}
+</script>
