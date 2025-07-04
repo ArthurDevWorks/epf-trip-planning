@@ -1,6 +1,7 @@
 from bottle import Bottle, request, redirect
 from .base_controller import BaseController
 from services.user_service import UserService
+from hashlib import sha256
 
 class UserController(BaseController):
     def __init__(self, app):
@@ -36,10 +37,41 @@ class UserController(BaseController):
         email = request.forms.get('email')
         birthdate = request.forms.get('birthdate')
         password = request.forms.get('password')
-        sucesso, erro = self.user_service.create_account(name, email, birthdate, password)
+        hash_password = sha256(password.encode()).hexdigest()
+        sucesso, erro = self.user_service.create_account(name, email, birthdate, hash_password)
         if sucesso:
             return redirect('/login')
         return self.render('register', erro=erro)
+    
+    def edit(self):
+        session = request.environ.get('beaker.session')
+        user_id = session.get('user_id')
+
+        if not user_id:
+            return redirect('/login')
+
+        if request.method == 'GET':
+            dataUser = self.user_service.getDataUser(user_id)
+            return self.render('user-edit', user=dataUser)
+
+        # POST
+        name = request.forms.get('name')
+        email = request.forms.get('email')
+        birthdate = request.forms.get('birthdate')
+        password = request.forms.get('password')
+        password_confirmation = request.forms.get('password-confirmation')
+
+        if password != password_confirmation:
+            dataUser = self.user_service.getDataUser(user_id)
+            return self.render('user-edit', user=dataUser, erro="As senhas não coincidem.")
+
+        sucesso, erro = self.user_service.update_user(user_id, name, email, birthdate, password)
+
+        if sucesso:
+            return redirect('/trip')
+        else:
+            dataUser = self.user_service.getDataUser(user_id)
+            return self.render('user-edit', user=dataUser, erro=erro)
 
     def logout(self):
         session = request.environ.get('beaker.session')

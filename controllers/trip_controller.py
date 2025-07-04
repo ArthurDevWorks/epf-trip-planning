@@ -12,7 +12,7 @@ class TripController(BaseController):
     def setup_routes(self):
         self.app.route('/trip-create', method=['GET', 'POST'], callback=self.create_trip)
         self.app.route('/trip-list', method=['GET', 'POST'], callback=self.list_trip)
-        # self.app.route('/user/edit', method=['GET', 'POST'], callback=user_controller.edit)
+        self.app.route('/user/edit', method=['GET', 'POST'], callback=user_controller.edit)
     
     def create_trip(self):
         session = request.environ.get('beaker.session')
