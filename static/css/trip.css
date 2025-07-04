@@ -2,12 +2,9 @@
   --primary: #7f5fff;
   --primary-dark: #4e60ff;
   --background: #181f2a;
-  --card-bg: rgba(40,50,70,0.92);
+  --card-bg: rgba(40, 50, 70, 0.92);
   --card-blur: blur(16px);
-  --input-border: rgba(255,255,255,0.16);
-  --input-focus: var(--primary);
   --text: #fff;
-  --text-secondary: rgba(255,255,255,0.7);
 }
 
 * {
@@ -32,8 +29,8 @@ body {
   backdrop-filter: var(--card-blur);
   -webkit-backdrop-filter: var(--card-blur);
   border-radius: 28px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
-  max-width: 720px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28);
+  max-width: 800px;
   width: 100%;
   padding: 48px 40px 36px 40px;
   display: flex;
@@ -50,67 +47,20 @@ h1 {
   background-clip: text;
   color: transparent;
   text-align: center;
-  margin-bottom: 8px;
   letter-spacing: -1px;
 }
 
-form {
-  width: 100%;
+.button-group {
   display: flex;
-  flex-direction: column;
-  gap: 28px;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.fields-row {
-  display: flex;
-  gap: 24px;
-  width: 100%;
-  justify-content: space-between;
-}
-
-.field {
-  flex: 1 1 0;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-label {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-
-input[type="date"],
-input[type="text"] {
-  width: 100%;
-  padding: 14px 16px;
-  border: 1.5px solid var(--input-border);
-  border-radius: 12px;
-  font-size: 1.08rem;
-  background: rgba(255,255,255,0.08);
-  color: var(--text);
-  transition: border 0.2s, background 0.2s;
-  outline: none;
-  font-weight: 500;
-}
-
-input[type="date"]:focus,
-input[type="text"]:focus {
-  border-color: var(--input-focus);
-  background: rgba(255,255,255,0.16);
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(0.8);
-  cursor: pointer;
-  transition: filter 0.2s ease;
-}
-
-input[type="date"]:focus::-webkit-calendar-picker-indicator {
-  filter: invert(1) brightness(1);
+.button-group a {
+  text-decoration: none;
+  flex: 1;
+  min-width: 160px;
 }
 
 button {
@@ -123,14 +73,8 @@ button {
   font-size: 1.12rem;
   cursor: pointer;
   transition: background 0.2s, box-shadow 0.2s;
-  margin-top: 8px;
   box-shadow: 0 2px 12px rgba(127, 95, 255, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
   width: 100%;
-  letter-spacing: 0.2px;
 }
 
 button:hover {
@@ -138,38 +82,8 @@ button:hover {
   box-shadow: 0 4px 24px rgba(127, 95, 255, 0.22);
 }
 
-button svg {
-  stroke: #fff;
-  width: 22px;
-  height: 22px;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  transition: transform 0.3s;
-}
-
-button:hover svg {
-  transform: translateX(6px);
-}
-
-@media (max-width: 900px) {
-  .container {
-    padding: 32px 12px;
-  }
-  h1 {
-    font-size: 1.5rem;
-  }
-  .fields-row {
-    gap: 12px;
-  }
-}
-
 @media (max-width: 700px) {
-  .fields-row {
+  .button-group {
     flex-direction: column;
-    gap: 18px;
-  }
-  .container {
-    padding: 24px 6px;
   }
 }

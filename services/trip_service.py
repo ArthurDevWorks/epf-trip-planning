@@ -1,5 +1,6 @@
 import pymysql
 from models.trip import Trip
+from datetime import datetime
 
 class TripService:
     def __init__(self):
@@ -24,3 +25,19 @@ class TripService:
             return False, str(e)
         finally:
            self.connection.close()
+
+    def getTripsByUserId(self, user_id):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM trips WHERE user_id = %s", (user_id,))
+                results = cursor.fetchall()
+
+                # Formatar datas
+                for trip in results:
+                    trip['dt_begin'] = datetime.strptime(str(trip['dt_begin']), "%Y-%m-%d").strftime("%d/%m/%Y")
+                    trip['dt_end'] = datetime.strptime(str(trip['dt_end']), "%Y-%m-%d").strftime("%d/%m/%Y")
+
+                return results
+        except Exception as e:
+            print(f"Erro ao buscar viagens: {e}")
+            return []

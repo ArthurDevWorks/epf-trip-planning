@@ -1,0 +1,91 @@
+:root {
+  --primary: #7f5fff;
+  --primary-dark: #4e60ff;
+  --background: #181f2a;
+  --card-bg: rgba(40,50,70,0.92);
+  --card-blur: blur(16px);
+  --text: #fff;
+  --text-secondary: rgba(255,255,255,0.7);
+  --border: rgba(255,255,255,0.16);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.container {
+  background: var(--card-bg);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  border-radius: 28px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.28);
+  max-width: 900px;
+  width: 100%;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-align: center;
+  letter-spacing: -1px;
+}
+
+.trip-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.trip-table th,
+.trip-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.trip-table th {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.trip-table td {
+  color: var(--text);
+  font-size: 1rem;
+}
+
+.trip-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.empty-msg {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
