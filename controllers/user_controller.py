@@ -1,6 +1,7 @@
+from services.user_service import UserService
 from bottle import Bottle, request, redirect
 from .base_controller import BaseController
-from services.user_service import UserService
+from utils.decorators import login_required
 from hashlib import sha256
 
 class UserController(BaseController):
@@ -13,7 +14,7 @@ class UserController(BaseController):
         self.app.route('/login', method=['GET', 'POST'], callback=self.login)
         self.app.route('/register', method=['GET', 'POST'], callback=self.register)
         self.app.route('/logout', method='GET', callback=self.logout)
-        self.app.route('/trip', method=['GET', 'POST'], callback=self.trip)
+        self.app.route('/trip', method=['GET', 'POST'], callback=login_required(self.trip))
 
     def login(self):
         if request.method == 'GET':
@@ -42,6 +43,7 @@ class UserController(BaseController):
             return redirect('/login')
         return self.render('register', erro=erro)
     
+    @login_required
     def edit(self):
         session = request.environ.get('beaker.session')
         user_id = session.get('user_id')
@@ -77,6 +79,7 @@ class UserController(BaseController):
         session.delete()
         return redirect('/login')
     
+    @login_required
     def trip(self):
         session = request.environ.get('beaker.session')
         user_id = session.get('user_id')

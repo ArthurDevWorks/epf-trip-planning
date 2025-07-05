@@ -24,8 +24,6 @@ class TripService:
                 return True, None
         except Exception as e:
             return False, str(e)
-        finally:
-           self.connection.close()
 
     def getTripsByUserId(self, user_id):
         try:
