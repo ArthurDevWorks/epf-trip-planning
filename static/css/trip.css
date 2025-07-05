@@ -87,3 +87,23 @@ button:hover {
     flex-direction: column;
   }
 }
+
+.logout-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.logout-btn {
+  background: crimson;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}

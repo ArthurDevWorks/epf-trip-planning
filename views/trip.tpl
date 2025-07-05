@@ -7,6 +7,9 @@
   <title>Menu Principal</title>
 </head>
 <body>
+<div class="logout-container">
+  <a href="/logout"><button class="logout-btn">Sair</button></a>
+</div>
   <div class="container">
     <h1>Bem-vindo!</h1>
     <div class="button-group">

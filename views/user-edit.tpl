@@ -43,6 +43,9 @@
         </svg>
       </button>
     </form>
+    <div class="back-button-container">
+      <a href="/trip"><button class="back-btn">Voltar</button></a>
+    </div>
   </div>
 </body>
 </html>
