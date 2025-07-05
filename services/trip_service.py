@@ -10,7 +10,9 @@ class TripService:
             user='root',
             password='',
             database='trip-planning',
-            cursorclass=pymysql.cursors.DictCursor
+            cursorclass=pymysql.cursors.DictCursor,
+            charset='utf8mb4',
+            use_unicode=True 
         )
 
     def save(self, user_id, dt_begin, dt_end, local):
