@@ -15,7 +15,6 @@ class UserController(BaseController):
         self.app.route('/register', method=['GET', 'POST'], callback=self.register)
         self.app.route('/logout', method='GET', callback=self.logout)
         self.app.route('/trip', method=['GET', 'POST'], callback=login_required(self.trip))
-        self.app.route('/user/edit', method=['GET', 'POST'], callback=login_required(self.edit))
 
     def login(self):
         if request.method == 'GET':
