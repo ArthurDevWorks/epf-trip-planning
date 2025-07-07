@@ -20,6 +20,12 @@ Proteção de Rotas
 
 ---
 
+## Diagram de Classes
+
+![Diagrama de Classes](utils/diagrama-classes.png)
+
+---
+
 ## 🗂 Estrutura de Pastas
 
 ```bash
