@@ -26,7 +26,6 @@ class TripController(BaseController):
         dt_end = data.get('dt_end')
 
         try:
-            # Etapa 1: Geocodificação
             geo_res = requests.get(
                 f"http://api.openweathermap.org/geo/1.0/direct?q={local}&limit=1&appid=d9c3d08371036ecd889477f5015e40a4"
             )
@@ -37,7 +36,6 @@ class TripController(BaseController):
 
             lat, lon = geo[0]['lat'], geo[0]['lon']
 
-            # Etapa 2: Previsão do tempo
             weather_res = requests.get(
                 f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&units=metric&lang=pt_br&appid=d9c3d08371036ecd889477f5015e40a4"
             )
@@ -46,7 +44,6 @@ class TripController(BaseController):
             if 'list' not in weather:
                 return json.dumps({"error": "Não foi possível obter a previsão do tempo."})
 
-            # Etapa 3: Filtrar por datas
             start_date = datetime.strptime(dt_begin, "%Y-%m-%d").date()
             end_date = datetime.strptime(dt_end, "%Y-%m-%d").date()
 
@@ -54,10 +51,9 @@ class TripController(BaseController):
             for item in weather["list"]:
                 data_prev = datetime.fromtimestamp(item["dt"]).date()  # Converte o timestamp para data
 
-                # Verificando se a data prevista está dentro do intervalo
                 if start_date <= data_prev <= end_date:
                     dias.append({
-                        "date": datetime.fromtimestamp(item["dt"]).strftime("%d/%m/%Y %H:%M"),  # Formato adequado
+                        "date": datetime.fromtimestamp(item["dt"]).strftime("%d/%m/%Y %H:%M"),
                         "temp_min": item["main"]["temp_min"],  # Temperatura mínima
                         "temp_max": item["main"]["temp_max"],  # Temperatura máxima
                         "description": item["weather"][0]["description"],
