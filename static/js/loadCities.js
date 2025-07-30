@@ -1,4 +1,4 @@
-const apiKey = 'cf6cd27c03f944bf8a5653c04cc3915c';
+const apiKey = 'sua-api-key';
 let timeoutId;
 
 document.getElementById('local').addEventListener('input', function () {
